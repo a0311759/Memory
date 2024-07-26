@@ -64,6 +64,7 @@
             </div>
         </div>
         <div id="message" class="mt-4">{{ message }}</div>
+        <button v-if="matchCount === cardsArray.length / 2" @click="resetGame" class="btn btn-primary mt-3">Play Again</button>
     </div>
 
     <script>
@@ -146,6 +147,18 @@
                 resetBoard() {
                     [this.hasFlippedCard, this.lockBoard] = [false, false];
                     [this.firstCard, this.secondCard] = [null, null];
+                },
+                resetGame() {
+                    this.shuffle(this.cardsArray);
+                    this.revealedCards = [];
+                    this.firstCard = null;
+                    this.secondCard = null;
+                    this.hasFlippedCard = false;
+                    this.lockBoard = false;
+                    this.matchCount = 0;
+                    this.message = '';
+                    this.secondsElapsed = 0;
+                    this.startTimer();
                 }
             }
         });
